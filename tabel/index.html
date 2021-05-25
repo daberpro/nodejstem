@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tabel</title>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+	<style type="text/css">
+		*{
+			box-sizing: border-box;
+			font-family: 'Varela Round', sans-serif;
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		body{
+			margin: 0px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+		table{
+			width: auto;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0px 0px 30px rgba(0,0,0,0.2);
+			border-radius: 10px;
+		}
+
+		table tr th{
+			font-family: sans-serif;
+			width: 200px;
+		}
+
+		table tr th:nth-child(1),table tr td:nth-child(1){
+			width: 30px;
+		}
+
+		table tr td:nth-child(2),table tr td:nth-child(3){
+			color: gray;
+		}
+
+		table tr td{
+			width: 200px;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			flex-wrap: wrap;
+			text-align: center;
+		}
+
+		table tr{
+			width: 100%;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			flex-wrap: wrap;
+			padding: 10px;
+			box-sizing: border-box;
+		}
+
+		table tr td button{
+			outline: none;
+			border: none;
+			padding: 15px;
+			background: rgba(200,200,250,0.2);
+			color: black;
+			border-radius: 10px;
+			text-transform: uppercase;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		table tr td button:nth-child(1){
+			color: orange;
+		}
+
+		table tr td button:nth-child(2){
+			color: red;
+		}
+
+		table .frst{
+			border-bottom: 0.1px solid rgba(0,0,0,0.25);
+		}
+
+		.edit{
+			width: 400px;
+			height: 450px;
+			display: none;
+			transition: 0.3s all;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0px 0px 30px rgba(0,0,0,0.2);
+			border-radius: 10px;
+			position: fixed;
+			left: 0px;
+			right: 0px;
+			top: 0px;
+			bottom: 0px;
+			opacity: 0.01;
+			margin: auto;
+			transform: scale(0.0001);
+			z-index: 4;
+			background: white;
+		}
+
+		.edit .input{
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			padding: 10px;
+		}
+
+		.edit .input label{
+			width: 80%;
+			color: gray;
+			padding: 5px;
+			font-weight: bold;
+		}
+
+		.edit .input input{
+			width: 80%;
+			padding: 20px;
+			outline: none;
+			border: none;
+			font-size: 14px;
+			border-radius: 10px;
+			background: rgba(200,200,250,0.2);
+			margin: 5px 0px;
+		}
+
+		.edit-bg{
+			content: "";
+			width: 100%;
+			height: 100%;
+			background: rgba(0,0,0,0.25);
+			position: fixed;
+			left: 0px;
+			bottom: 0px;
+			transform: scale(1.0);
+			opacity: 0.01;
+			transition: 0.3s all;
+			z-index: 1;
+			display: none;
+		}
+
+		.edit .action{
+			width: 80%;
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			flex-wrap: wrap;
+			padding: 10px;
+		}
+
+		.edit .action button{
+			outline: none;
+			border: none;
+			padding: 15px;
+			font-size: 14px;
+			border-radius: 10px;
+			margin: 0px 5px;
+			color: black;
+		}
+
+		.show{
+			transform: scale(1.0);
+			transition: all 0.3s;
+			opacity: 1.0;
+			display: flex;
+		}
+
+	</style>
+</head>
+<body>
+
+	<table id="table">
+		<tr class="frst">
+			<th>No</th>
+			<th>Name</th>
+			<th>Id</th>
+			<th>Action</th>
+		</tr>
+	</table>
+
+	<div class="edit-bg" id="bg"></div>
+	<div class="edit" id="edit">
+		
+		<h1>Edit Member</h1>
+
+		<div class="input">
+			<label>Name</label>
+			<input type="text" id="name">
+		</div>
+		<div class="input">
+			<label>Id</label>
+			<input type="text" id="id">
+		</div>
+
+		<div class="action">
+			<button onclick="saveData(this)" id="index" name="">Save</button>
+			<button id="close">Close</button>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+
+		let edit = document.querySelector("#edit")
+		let bg = document.querySelector("#bg")
+
+		bg.onclick = ()=>{
+			edit.classList.toggle("show");
+			bg.classList.toggle("show");
+		}
+
+		document.querySelector("#close").onclick = ()=>{
+			edit.classList.toggle("show");
+			bg.classList.toggle("show");
+		}
+
+		let showedit = (...obj) =>{
+
+			edit.classList.toggle("show");
+			bg.classList.toggle("show");
+
+			document.querySelector("#name").value = obj[0];
+			document.querySelector("#id").value = obj[1];
+			document.querySelector("#index").name = obj[2];
+
+		} 
+
+		let saveData = async (el)=>{
+
+			let update = await fetch("http://localhost:3000/login/",{
+				method: "PUT",
+				headers:{
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					name: document.querySelector("#name").value,
+					id: document.querySelector("#id").value,
+					index: el.name
+				})
+			});
+
+			let message = await update.json();
+			let status = await update.status;
+
+			if(status === 200){
+
+				let element = document.querySelectorAll(".name"+el.name);
+
+				element[0].textContent = message.name;
+				element[1].textContent = message.id;
+
+				console.log(message.message);
+				edit.classList.toggle("show");
+				bg.classList.toggle("show");
+			}
+
+		}
+
+		let Delete = async (index,el)=>{
+
+			let Data = await fetch("http://localhost:3000/login",{
+				method: "DELETE",
+				headers:{
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					index
+				})
+			});
+
+			el.parentElement.parentElement.remove();
+
+			let result = await Data.text();
+
+			console.log(result);
+
+		}
+		
+		let data = async ()=>{
+			let Data = await fetch("http://localhost:3000/login/data.json",{
+				method: "GET"
+			});
+
+			let result = await Data.json();
+			
+			result?.forEach?.((data,index)=>{
+				document.querySelector("#table").
+				innerHTML += `
+				<tr>
+					<td>${index}</td>
+					<td class="name${index}">${data.name}</td>
+					<td class="name${index} left-td">${data.id}</td>
+					<td class="${(result.length-1 === index)?'right-td': ""}">
+						<button onclick="showedit('${data.name}','${data.id}',${index})">Edit</button>
+						<button onclick="Delete(${index},this)">Delete</button>
+					</td>
+				</tr>
+				`
+			});
+
+		}
+
+		data()
+
+
+	</script>
+
+</body>
+</html>
