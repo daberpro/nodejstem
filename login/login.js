@@ -22,8 +22,6 @@ Router.post("/",(req,res)=>{
 
 	let data = fs.readFileSync(__dirname+"/dataset/data.json").toString();
 	let data_array = JSON.parse(data);
-
-	console.log(data)
 	
 	if(req.body.name && req.body.id && data_array.length > 0){
 
@@ -41,9 +39,9 @@ Router.post("/",(req,res)=>{
 				encoding: "utf-8"
 			});
 		
-	}else{
-		res.json({message: "user not define"});
 	}
+
+	res.json({message: "user not define"});
 	
 });
 

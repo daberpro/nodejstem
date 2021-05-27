@@ -2,8 +2,75 @@
 <html>
 <head>
 	<title>hello world</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+	<style type="text/css">
+		*{
+			box-sizing: border-box;
+			font-family: 'Varela Round', sans-serif;
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+		}
+
+		body{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+
+		.action {
+			padding: 20px;
+			box-shadow: 0px 0px 30px rgba(0,0,0,0.1);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-wrap: wrap;
+			background: white;
+			border-radius: 10px;
+		}
+
+		.action button{
+			outline: none;
+			border: none;
+			padding: 15px;
+			background: rgba(200,200,250,0.2);
+			color: black;
+			border-radius: 10px;
+			text-transform: uppercase;
+			font-weight: bold;
+			cursor: pointer;
+			margin-right: 10px;
+		}
+
+		p{
+			padding: 20px;
+			text-align: center;
+		}
+	</style>
 </head>
 <body>
 	<h1>hello world</h1>
+	<p>
+		this is the simple <b>API</b> by node js and not using the database create by Daber
+	</p>
+	<div class="action">
+		<button onclick="goTo('login')">Login Panel</button>
+		<button onclick="goTo('table')">Table</button>
+	</div>
+	
+	<script type="text/javascript">
+		
+		let goTo = (path)=>{
+
+			location.href = location.protocol +"//"+location.host+"/"+path;
+
+		}
+
+	</script>
 </body>
 </html>

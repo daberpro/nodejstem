@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Tabel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 	<style type="text/css">
@@ -15,13 +16,19 @@
 		}
 		body{
 			margin: 0px;
+		}
+
+		.container{
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			flex-direction: column;
+			flex-wrap: wrap;
+			width: 100%;
+			height: 100%;
 		}
+
 		table{
-			width: auto;
+			width: 90%;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -29,6 +36,29 @@
 			padding: 10px;
 			box-shadow: 0px 0px 30px rgba(0,0,0,0.2);
 			border-radius: 10px;
+		}
+
+		.data{
+			width: 80%;
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0px 0px 30px rgba(0,0,0,0.2);
+			border-radius: 10px;
+		}
+
+		.data button{
+			outline: none;
+			border: none;
+			padding: 15px;
+			background: rgba(200,200,250,0.2);
+			color: black;
+			border-radius: 10px;
+			text-transform: uppercase;
+			font-weight: bold;
+			cursor: pointer;
 		}
 
 		table tr th{
@@ -178,18 +208,43 @@
 			display: flex;
 		}
 
+		@media screen and (min-width: 0px) and (max-width: 320px){
+			table,.data{
+				width: auto;
+			}
+			table tr td,table tr th{
+				width: 80px;
+			}
+		} 
+
+		@media screen and (min-width: 320px) and (max-width: 600px){
+			table,.data{
+				width: auto;
+			}
+			table tr td,table tr th{
+				width: 100px;
+			}
+		}
+
 	</style>
 </head>
 <body>
 
-	<table id="table">
-		<tr class="frst">
-			<th>No</th>
-			<th>Name</th>
-			<th>Id</th>
-			<th>Action</th>
-		</tr>
-	</table>
+	<div class="container">
+		<table id="table">
+			<tr class="frst">
+				<th>No</th>
+				<th>Name</th>
+				<th>Id</th>
+				<th>Action</th>
+			</tr>
+		</table>
+		<div class="data">
+			<button onclick="goJSON()">
+				See JSON
+			</button>
+		</div>
+	</div>
 
 	<div class="edit-bg" id="bg"></div>
 	<div class="edit" id="edit">
@@ -213,6 +268,10 @@
 	</div>
 
 	<script type="text/javascript">
+
+		let goJSON = ()=>{
+			location.href = location.protocol +"//"+location.host+"/login/data.json";
+		}
 
 		let edit = document.querySelector("#edit")
 		let bg = document.querySelector("#bg")

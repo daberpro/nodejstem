@@ -14,7 +14,7 @@ App.use("/table",tabel);
 App.use(express.static(__dirname+"/"));
 
 App.listen(process.env.PORT || 3000,()=>{
-	c("server listen on port ")
+	c("server listen on port 3000")
 })
 
 

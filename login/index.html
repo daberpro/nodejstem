@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Login</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
@@ -20,7 +21,7 @@
 		</div>
 		<div class="submit">
 			<button id="kirim">submit</button>
-			<button>back</button>
+			<button onclick="home()">back</button>
 		</div>
 	</div>
 
@@ -41,9 +42,17 @@
 			})
 		})
 
-		console.log(await data.json())
+		let Data =  await data.json();
+
+		location.href = location.protocol +"//"+location.host+"/table";
 
 	}
+
+	let home = ()=>{
+
+				location.href = location.protocol +'//'+location.host;
+
+			}
 
 </script>
 </body>
